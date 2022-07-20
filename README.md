@@ -1,19 +1,20 @@
 # SQL with Python sqlite3
 > 이 Repository에서는 sqlite3 모듈로 SQL 문법을 학습한 내용을 정리합니다.  
 sqlite3는 Python에서 2.5버전부터 기본적으로 지원하는 라이브러리로, SQLite를 사용할 수 있도록 인터페이스를 제공합니다.  
-jupyter notebook을 이용하여 SQL문과 실행 결과를 한눈에 볼 수 있도록 했습니다. (github에서 빠르게 볼 수 있도록 Python 스크립트 버전도 추가)
+jupyter notebook을 이용하여 SQL문과 실행 결과를 한눈에 볼 수 있도록 했습니다.  
+_(github에서 빠르게 볼 수 있도록 Python 스크립트 버전도 추가)_
 
 ### SQL(Structed Query Language)
 * 관계형 데이터베이스 시스템(RDBMS)에서 DB를 관리하기 위한 언어
 * 크게 3가지로 나뉩니다
     * DDL (Data Define Language): 외부 스키마와 관련된 명령어  
-    (CREATE, ALTER, DROP, RENAME, TRUNCATE, COMMENT)  
+    _(CREATE, ALTER, DROP, RENAME, TRUNCATE, COMMENT)_  
 
     * DML (Data Manipulation Language): 데이터를 조작하는 명령어  
-    (SELECT, INSERT, UPDATE, DELETE)  
+    _(SELECT, INSERT, UPDATE, DELETE)_  
 
-    * DCL (Data Control Language): 데이터의 보안 및 무결성과 관련된 명령어
-    (GRANT, REVOKE)
+    * DCL (Data Control Language): 데이터의 보안 및 무결성과 관련된 명령어  
+    _(GRANT, REVOKE)_
 
 
 
