@@ -2,6 +2,7 @@
 # # 데이터 조회
 # 데이터 조회 시 유용한 문법에 대해 알아봅니다.
 # * [SELECT](#select)
+#     * [LIMIT](#limit)
 #     * [연결 연산자 (||)](#연결-연산자)
 #     * [AS](#as)
 # * [DISTINCT](#distinct)
@@ -46,7 +47,7 @@ cur.execute("""
     FROM customers
     """)
 
-# 데이터 양이 많으니 10개만
+# 데이터 양이 많으니 상위 10개만 일단 보기
 from_db_cursor(cur)[:10]
 
 # %%
@@ -81,6 +82,45 @@ cur.execute("""
 from_db_cursor(cur)[:10]
 
 # %% [markdown]
+# ### LIMIT
+# 쿼리 결과를 원하는 행 수 만큼만 받도록 합니다.
+
+# %%
+cur.execute("""
+    SELECT *
+    FROM customers
+    LIMIT 5
+    """)
+
+from_db_cursor(cur)
+
+# %% [markdown]
+# OFFSET 키워드로 행을 얼마만큼 건너뛸것인지 지정할 수 있습니다.
+
+# %%
+# offset을 n으로 지정하면 n행 건너뛰고 n+1행부터 리턴
+cur.execute("""
+    SELECT *
+    FROM customers
+    LIMIT 5 OFFSET 10
+    """)
+
+from_db_cursor(cur)
+
+# %% [markdown]
+# OFFSET 키워드를 사용하지 않고 지정할 수도 있습니다.
+
+# %%
+# 앞에 오는 숫자가 offset, 뒤에 오는 숫자가 limit
+cur.execute("""
+    SELECT *
+    FROM customers
+    LIMIT 10, 5
+    """)
+
+from_db_cursor(cur)
+
+# %% [markdown]
 # ### 연결 연산자 (||)
 # 여러 컬럼의 값 또는 문자열을 합쳐 하나의 컬럼으로 출력합니다.  
 # 문자열은 작은 따옴표(')로 감싸서 입력해야 합니다.
@@ -89,17 +129,19 @@ from_db_cursor(cur)[:10]
 cur.execute("""
     SELECT firstname||' '||lastname
     FROM customers
+    LIMIT 10
     """)
 
-from_db_cursor(cur)[:10]
+from_db_cursor(cur)
 
 # %%
 cur.execute("""
     SELECT customerid, 'My name is '||firstname||' '||lastname
     FROM customers
+    LIMIT 10
     """)
 
-from_db_cursor(cur)[:10]
+from_db_cursor(cur)
 
 # %% [markdown]
 # ### AS
@@ -110,18 +152,20 @@ from_db_cursor(cur)[:10]
 cur.execute("""
     SELECT customerid, firstname||' '||lastname AS Name
     FROM customers
+    LIMIT 10
     """)
 
-from_db_cursor(cur)[:10]
+from_db_cursor(cur)
 
 # %%
 # 별명에 공백, 특수문자 등을 포함하고 싶은 경우 작은따옴표로 감싸서 문자열 형태로 만들어야 함
 cur.execute("""
     SELECT customerid, firstname||' '||lastname AS 'My Name☆'
     FROM customers
+    LIMIT 10
     """)
 
-from_db_cursor(cur)[:10]
+from_db_cursor(cur)
 
 # %% [markdown]
 # ## DISTINCT
@@ -133,9 +177,10 @@ from_db_cursor(cur)[:10]
 cur.execute("""
     SELECT DISTINCT country
     FROM customers
+    LIMIT 10
     """)
 
-from_db_cursor(cur)[:10]
+from_db_cursor(cur)
 
 # %% [markdown]
 # ## ORDER BY
@@ -143,13 +188,15 @@ from_db_cursor(cur)[:10]
 
 # %%
 # SELECT * FROM table_name ORDER BY column1
+# LIMIT은 ORDER BY 다음에 작성
 cur.execute("""
     SELECT *
     FROM customers
     ORDER BY country
+    LIMIT 10
     """)
 
-from_db_cursor(cur)[:10]
+from_db_cursor(cur)
 
 # %%
 # 2개 이상의 컬럼을 정렬 기준으로 넣을 수도 있음
@@ -157,9 +204,10 @@ cur.execute("""
     SELECT DISTINCT country, city
     FROM customers
     ORDER BY country, city
+    LIMIT 15
     """)
 
-from_db_cursor(cur)[:15]
+from_db_cursor(cur)
 
 # %% [markdown]
 # 컬럼별로 정렬 순서를 지정할 수 있습니다.
@@ -172,9 +220,10 @@ cur.execute("""
     SELECT DISTINCT country, city
     FROM customers
     ORDER BY country ASC, city DESC
+    LIMIT 15
     """)
 
-from_db_cursor(cur)[:15]
+from_db_cursor(cur)
 
 # %% [markdown]
 # ## WHERE
@@ -289,8 +338,9 @@ cur.execute("""
     SELECT *
     FROM customers
     WHERE email LIKE '%.__'
+    LIMIT 10
     """)
 
-from_db_cursor(cur)[:10]
+from_db_cursor(cur)
 
 
